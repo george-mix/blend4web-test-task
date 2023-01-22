@@ -1,0 +1,60 @@
+/* 
+Google fonts does not have lato-semibold, i downloaded it manualy, 
+and this version have compatability issues with lato-regular and lato-bold provided by Google.
+Have to download manually all weights for design to be exact.
+*/
+@font-face {
+  font-family: "Lato";
+  src: url(./assets/Lato-Regular.woff2);
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url(./assets/Lato-Semibold.woff2);
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url(./assets/Lato-Bold.woff2);
+  font-weight: 700;
+  font-style: normal;
+}
+
+:root {
+  --primary: #53cbf1;
+  --secondary: #ca4c4c;
+  --filler: rgb(49, 49, 49, 0.5);
+  --background-primary: #313131;
+  --text-primary: #ffffff;
+  --text-secondary: #bfbfbf;
+
+  font-family: "Lato", sans-serif;
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+
+  color: var(--text-primary);
+  background-color: var(--filler);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
