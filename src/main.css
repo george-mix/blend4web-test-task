@@ -27,7 +27,7 @@ Have to download manually all weights for design to be exact.
 :root {
   --primary: #53cbf1;
   --secondary: #ca4c4c;
-  --filler: rgb(49, 49, 49, 0.5);
+  --filler: rgb(49, 49, 49, 0.7);
   --background-primary: #313131;
   --text-primary: #ffffff;
   --text-secondary: #bfbfbf;

@@ -148,6 +148,14 @@ export class DataTable extends BaseElement {
         height: 20px;
       }
 
+      .table-cell__button--update:hover img {
+        filter: invert(73%) sepia(31%) saturate(2285%) hue-rotate(166deg) brightness(105%) contrast(89%);
+      }
+
+      .table-cell__button--delete:hover img {
+        filter: invert(37%) sepia(53%) saturate(735%) hue-rotate(312deg) brightness(97%) contrast(91%);
+      }
+
       .table-cell__text-wrap {
         width: 70%;
       }
@@ -188,7 +196,7 @@ export class DataTable extends BaseElement {
             <td class="table-cell table-cell--content">
               <div class="table-cell__text-wrap">
                 ${color.name}
-                </div>
+              </div>
             </td>
             <td class="table-cell table-cell--content">
               ${color.type}
