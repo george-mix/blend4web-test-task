@@ -21,6 +21,10 @@ module.exports = {
         test: /\.woff2$/i,
         type: "asset/resource",
       },
+      {
+        test: /\.svg$/,
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [

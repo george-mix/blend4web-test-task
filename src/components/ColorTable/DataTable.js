@@ -1,6 +1,8 @@
 import { DragAndDrop, handleDragOver } from "../../helpers/DragAndDrop";
 import { ColorService } from "../../services/ColorService";
 import { BaseElement } from "../BaseElement";
+import deleteButton from "../../assets/icons/delete-button.svg";
+import editButton from "../../assets/icons/edit-button.svg";
 
 export class DataTable extends BaseElement {
   #colors = [];
@@ -63,6 +65,9 @@ export class DataTable extends BaseElement {
       ".table-cell__button--update"
     );
     updateButtons.forEach((button, index) => {
+      const editButtonImg = button.querySelector("img");
+      editButtonImg.src = editButton;
+
       button.addEventListener("click", (e) => {
         colorService.updateItemFromColorArray(index, {
           name: Math.random(),
@@ -74,12 +79,14 @@ export class DataTable extends BaseElement {
   }
 
   listenForDeletes(colorService) {
-    const updateButtons = this.shadowRoot.querySelectorAll(
+    const deleteButtons = this.shadowRoot.querySelectorAll(
       ".table-cell__button--delete"
     );
-    updateButtons.forEach((button, index) => {
+    deleteButtons.forEach((button, index) => {
+      const deleteButtonImg = button.querySelector("img");
+      deleteButtonImg.src = deleteButton;
+
       button.addEventListener("click", () => {
-        console.log("sfsdfsdfsdf");
         colorService.deleteItemFromCollorArray(index);
       });
     });
@@ -127,6 +134,23 @@ export class DataTable extends BaseElement {
       .dragging {
         opacity: 0.5;
       }
+
+      .table-cell--center {
+        text-align: center;
+        padding: 0;
+      }
+
+      .table-cell__button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+      }
+
+      .table-cell__text-wrap {
+        width: 70%;
+      }
     `;
   }
 
@@ -162,17 +186,23 @@ export class DataTable extends BaseElement {
               <div class="table-cell__rect" style="background-color:${color.color};"></div>
             </td>
             <td class="table-cell table-cell--content">
-              ${color.name}
+              <div class="table-cell__text-wrap">
+                ${color.name}
+                </div>
             </td>
             <td class="table-cell table-cell--content">
               ${color.type}
             </td>
             <td class="table-cell table-cell--content">${color.color}</td>
-            <td class="table-cell">
-              <button class="table-cell__button table-cell__button--update">up</button>
+            <td class="table-cell table-cell--center">
+              <button class="table-cell__button table-cell__button--update">
+                <img>
+              </button>
             </td>
-            <td class="table-cell">
-              <button class="table-cell__button table-cell__button--delete">del</button>
+            <td class="table-cell table-cell--center">
+              <button class="table-cell__button table-cell__button--delete">
+                <img>
+              </button>
             </td>
           </tr>
         `;

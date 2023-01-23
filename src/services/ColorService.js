@@ -1,7 +1,7 @@
 export class ColorService {
   static #inst;
   #colorArray = [
-    { name: "Лавандовый пунш", type: "main", color: "#86EAE9" },
+    { name: "Мятное утро", type: "main", color: "#86EAE9" },
     { name: "Лавандовый пунш", type: "side", color: "#B8B2DD" },
     { name: "Лавандовый пунш", type: "main", color: "#37C9EF" },
   ];
