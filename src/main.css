@@ -27,7 +27,7 @@ Have to download manually all weights for design to be exact.
 :root {
   --primary: #53cbf1;
   --secondary: #ca4c4c;
-  --filler: rgb(49, 49, 49, 0.7);
+  --filler: rgb(49, 49, 49, 0.4);
   --background-primary: #313131;
   --text-primary: #ffffff;
   --text-secondary: #bfbfbf;
@@ -63,6 +63,10 @@ Have to download manually all weights for design to be exact.
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
+  min-height: 100vh;
 }
 
 li {

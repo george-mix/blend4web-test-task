@@ -26,6 +26,15 @@ export class ColorTable extends BaseElement {
         justify-content: center;
         align-items: center;
       }
+
+      @media screen and (max-width: 500px) {
+        :host {
+          max-width: 400px;
+          min-width: 150px;
+          padding: 20px;
+          overflox-x: scroll;
+        }
+      }
     `;
   }
 

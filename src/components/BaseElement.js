@@ -30,6 +30,12 @@ export class BaseElement extends HTMLElement {
           font-weight: 700;
         }
 
+        input, input::placeholder {
+          font-family: "Lato", sans-serif;
+          font-size: 12px;
+          font-weight: 400;
+        }
+
         ${styles && styles}
       </style>
     `;

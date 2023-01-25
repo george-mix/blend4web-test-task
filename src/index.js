@@ -33,10 +33,6 @@ class AppRoot extends BaseElement {
         justify-content: center;
         padding: 30px;
       }
-
-      .container--absolute {
-        
-      }
     `;
   }
 
@@ -46,9 +42,7 @@ class AppRoot extends BaseElement {
       <div class="container">
         <color-table></color-table>
       </div>
-      
-        <color-modal></color-modal>
-    
+      <color-modal></color-modal>
     `;
   }
 }

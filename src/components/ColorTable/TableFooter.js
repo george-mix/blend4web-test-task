@@ -31,6 +31,12 @@ export class TableFooter extends BaseElement {
         color: var(--text-primary);
         cursor: pointer;
       }
+
+      @media screen and (max-width: 500px) {
+        .button {
+          padding: 10px 34px;
+        }
+      }
     `;
   }
 
