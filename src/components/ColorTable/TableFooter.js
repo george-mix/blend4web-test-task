@@ -1,4 +1,3 @@
-import { ColorService } from "../../services/ColorService";
 import { BaseElement } from "../BaseElement";
 
 export class TableFooter extends BaseElement {
@@ -8,11 +7,17 @@ export class TableFooter extends BaseElement {
   }
 
   connectedCallback() {
-    const colorService = new ColorService();
-
     const createButton = this.querySelector(".button");
-    createButton.addEventListener("click", (e) => {
-      colorService.addItemToColorArray();
+    createButton.addEventListener("click", () => {
+      this.dispatchEvent(
+        new CustomEvent("openmoodal", {
+          detail: {
+            status: "new",
+          },
+          bubbles: true,
+          composed: true,
+        })
+      );
     });
   }
 

@@ -1,15 +1,20 @@
 import { BaseElement } from "../BaseElement";
 import saveButton from "../../assets/icons/save-button.svg";
 import closeButton from "../../assets/icons/close-button.svg";
+import { ColorService } from "../../services/ColorService";
 
 export class TableHeader extends BaseElement {
   constructor() {
     super();
     this.render();
 
+    const colorService = new ColorService();
     const saveButtonEl = this.querySelector(".table-header__save-button");
     const saveButtonImg = saveButtonEl.querySelector("img");
     saveButtonImg.src = saveButton;
+    saveButtonEl.addEventListener("click", () => {
+      colorService.saveColorArray();
+    });
 
     const closeButtonEl = this.querySelector(".table-header__close-button");
     const closeButtonImg = closeButtonEl.querySelector("img");

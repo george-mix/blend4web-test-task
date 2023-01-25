@@ -1,0 +1,1 @@
+export { ColorModal } from "./ColorModal";
