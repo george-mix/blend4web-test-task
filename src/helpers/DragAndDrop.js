@@ -18,27 +18,31 @@ export class DragAndDrop {
     ).element;
   }
 
-  static handleDrag(draggables, className) {
+  static handleDrag(draggables, className, callback) {
     draggables.forEach((draggable) => {
       draggable.addEventListener("dragstart", () => {
         draggable.classList.add(className);
       });
       draggable.addEventListener("dragend", () => {
         draggable.classList.remove(className);
+        callback();
       });
     });
   }
-}
 
-export function handleDragOver(container, className) {
-  container.addEventListener("dragover", (e) => {
-    e.preventDefault();
-    const afterElement = DragAndDrop.getDragAfterElement(container, e.clientY);
-    const draggable = container.querySelector(`.${className}`);
-    if (afterElement == null) {
-      container.appendChild(draggable);
-    } else {
-      container.insertBefore(draggable, afterElement);
-    }
-  });
+  static handleDragOver(container, className) {
+    container.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      const afterElement = DragAndDrop.getDragAfterElement(
+        container,
+        e.clientY
+      );
+      const draggable = container.querySelector(`.${className}`);
+      if (afterElement == null) {
+        container.appendChild(draggable);
+      } else {
+        container.insertBefore(draggable, afterElement);
+      }
+    });
+  }
 }

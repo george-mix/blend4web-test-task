@@ -13,7 +13,7 @@ export class ColorTable extends BaseElement {
   createStyle() {
     return `
       :host {
-        min-width: 680px;
+        max-width: 680px;
         background-color: var(--background-primary);
         color: var(--text-primary);
         border-radius: 20px;

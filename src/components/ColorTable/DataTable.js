@@ -1,4 +1,4 @@
-import { DragAndDrop, handleDragOver } from "../../helpers/DragAndDrop";
+import { DragAndDrop } from "../../helpers/DragAndDrop";
 import { ColorService } from "../../services/ColorService";
 import { BaseElement } from "../BaseElement";
 import deleteButton from "../../assets/icons/delete-button.svg";
@@ -19,7 +19,7 @@ export class DataTable extends BaseElement {
       this.render.bind(this)
     );
     this.#unsubscribe.push(unsubscribe);
-    this.#colors = colorService.getColorArray;
+    this.#colors = colorService.colorArray;
     this.render();
 
     this.handleDragAndDrop();
@@ -40,9 +40,31 @@ export class DataTable extends BaseElement {
     const container = this.shadowRoot.querySelector(".table-body");
 
     const className = "dragging";
-    DragAndDrop.handleDrag(draggables, className);
+    DragAndDrop.handleDrag(
+      draggables,
+      className,
+      this.handleDragEnd.bind(this)
+    );
+    DragAndDrop.handleDragOver(container, className);
+  }
 
-    handleDragOver(container, className);
+  handleDragEnd() {
+    const draggables = this.shadowRoot.querySelectorAll(".draggable");
+
+    const newColorArray = [...draggables].map((draggable) => {
+      const color = draggable.querySelector(".table-cell__color").innerText;
+      const type = draggable.querySelector(".table-cell__type").innerText;
+      const name = draggable.querySelector(".table-cell__color-name").innerText;
+
+      return {
+        color,
+        type,
+        name,
+      };
+    });
+
+    const colorService = new ColorService();
+    colorService.colorArray = newColorArray;
   }
 
   handleButtonClicks(colorService) {
@@ -60,7 +82,7 @@ export class DataTable extends BaseElement {
     this.#unsubscribe.push(unsubForUpdate);
   }
 
-  listenForUpdates(colorService) {
+  listenForUpdates() {
     const updateButtons = this.shadowRoot.querySelectorAll(
       ".table-cell__button--update"
     );
@@ -68,12 +90,17 @@ export class DataTable extends BaseElement {
       const editButtonImg = button.querySelector("img");
       editButtonImg.src = editButton;
 
-      button.addEventListener("click", (e) => {
-        colorService.updateItemFromColorArray(index, {
-          name: Math.random(),
-          type: "main",
-          color: "#453ffd",
-        });
+      button.addEventListener("click", () => {
+        this.dispatchEvent(
+          new CustomEvent("openmoodal", {
+            detail: {
+              status: "update",
+              colorObjectIndex: index,
+            },
+            bubbles: true,
+            composed: true,
+          })
+        );
       });
     });
   }
@@ -122,7 +149,13 @@ export class DataTable extends BaseElement {
         color: var(--text-secondary);
       }
 
+      .table-cell__color-rect {
+        width: 90px;
+       }
+
       .table-cell__rect {
+        margin-left: auto;
+        margin-right: auto;
         width: 41px;
         height: 41px;
       }
@@ -159,6 +192,14 @@ export class DataTable extends BaseElement {
       .table-cell__text-wrap {
         width: 70%;
       }
+
+      .table-wrapper {
+        overflow-x: auto;
+      } 
+
+      .table-cell__color-name {
+        width: 135px;
+      }
     `;
   }
 
@@ -166,22 +207,26 @@ export class DataTable extends BaseElement {
     this.shadowRoot.innerHTML = `
       ${this.css} 
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th class="table-cell table-cell--header" scope="col">Цвет</th>
-            <th class="table-cell table-cell--header" scope="col">Название</th>
-            <th class="table-cell table-cell--header table-cell--equal" scope="col">Тип</th>
-            <th class="table-cell table-cell--header table-cell--equal" scope="col">Код</th>
-            <th class="table-cell table-cell--header table-cell--equal" scope="col">Изменить</th>
-            <th class="table-cell table-cell--header table-cell--equal" scope="col">Удалить</th>
-          </tr>
-        <thead>
-    
-        <tbody class="table-body">
-          ${this.rows}
-        </tbody>
-      </table>
+      <div class="table-wrapper">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="table-cell table-cell--header table-cell__color-rect" scope="col">Цвет</th>
+              <th class="table-cell table-cell--header table-cell__color-name" scope="col">
+                Название
+              </th>
+              <th class="table-cell table-cell--header table-cell--equal" scope="col">Тип</th>
+              <th class="table-cell table-cell--header table-cell--equal" scope="col">Код</th>
+              <th class="table-cell table-cell--header table-cell--equal" scope="col">Изменить</th>
+              <th class="table-cell table-cell--header table-cell--equal" scope="col">Удалить</th>
+            </tr>
+          <thead>
+      
+          <tbody class="table-body">
+            ${this.rows}
+          </tbody>
+        </table>
+      </div>
     `;
   }
 
@@ -190,18 +235,18 @@ export class DataTable extends BaseElement {
       .map((color) => {
         return ` 
           <tr class="draggable" draggable="true">
-            <td class="table-cell">
+            <td class="table-cell table-cell--center">
               <div class="table-cell__rect" style="background-color:${color.color};"></div>
             </td>
-            <td class="table-cell table-cell--content">
+            <td class="table-cell table-cell--content table-cell__color-name">
               <div class="table-cell__text-wrap">
                 ${color.name}
               </div>
             </td>
-            <td class="table-cell table-cell--content">
+            <td class="table-cell table-cell--content table-cell__type">
               ${color.type}
             </td>
-            <td class="table-cell table-cell--content">${color.color}</td>
+            <td class="table-cell table-cell--content table-cell__color">${color.color}</td>
             <td class="table-cell table-cell--center">
               <button class="table-cell__button table-cell__button--update">
                 <img>
