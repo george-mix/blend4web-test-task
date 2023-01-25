@@ -24,6 +24,12 @@ export class BaseElement extends HTMLElement {
           display: block;
         }
 
+        button {
+          font-family: "Lato", sans-serif;
+          font-size: 12px;
+          font-weight: 700;
+        }
+
         ${styles && styles}
       </style>
     `;
